@@ -5,13 +5,13 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGatewayBlazor.Mongo", "ApiGatewayBlazor.Mongo\ApiGatewayBlazor.Mongo.csproj", "{4268E43B-2820-42CE-8D0E-F30190138E4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGatewayBlazor.SqlServer", "ApiGatewayBlazor.SqlServer\ApiGatewayBlazor.SqlServer.csproj", "{B6D5E37F-633E-42F4-8A91-7F29149FE1F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGatewayBlazor.SqlServer", "ApiGatewayBlazor.SqlServer\ApiGatewayBlazor.SqlServer.csproj", "{B6D5E37F-633E-42F4-8A91-7F29149FE1F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGatewayBlazor.Server", "ApiGatewayBlazor\Server\ApiGatewayBlazor.Server.csproj", "{735E94FF-5C78-403B-840A-B8D66A56640C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGatewayBlazor.Server", "ApiGatewayBlazor\Server\ApiGatewayBlazor.Server.csproj", "{735E94FF-5C78-403B-840A-B8D66A56640C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGatewayBlazor.Client", "ApiGatewayBlazor\Client\ApiGatewayBlazor.Client.csproj", "{4A03C163-7F93-4592-A61B-FD22C2916414}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGatewayBlazor.Client", "ApiGatewayBlazor\Client\ApiGatewayBlazor.Client.csproj", "{4A03C163-7F93-4592-A61B-FD22C2916414}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGatewayBlazor.Shared", "ApiGatewayBlazor\Shared\ApiGatewayBlazor.Shared.csproj", "{CAE22792-2C4E-4009-93A8-0817FFAE93A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGatewayBlazor.Shared", "ApiGatewayBlazor\Shared\ApiGatewayBlazor.Shared.csproj", "{CAE22792-2C4E-4009-93A8-0817FFAE93A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,42 @@
+﻿@* @page "/likes"
+
+
+<h3>Contador de Me gusta y No me gusta</h3>
+
+<p>Me gusta: @likesCount</p>
+<p>No me gusta: @dislikesCount</p>
+
+<button @onclick="IncrementarMeGusta">Me gusta</button>
+<button @onclick="IncrementarNoMeGusta">No me gusta</button>
+
+@code {
+    private int likesCount;
+    private int dislikesCount;
+
+    [Inject]
+    private ILikeService LikeService { get; set; }  // Inyecta el servicio de "Me gusta" y "No me gusta"
+
+    private async Task CargarContadores()
+    {
+        likesCount = await LikeService.ContarMeGusta();
+        dislikesCount = await LikeService.ContarNoMeGusta();
+    }
+
+    private async Task IncrementarMeGusta()
+    {
+        await LikeService.IncrementarMeGusta();  // Llama al método correspondiente en el servicio
+        await CargarContadores();  // Actualiza los contadores después de la operación
+    }
+
+    private async Task IncrementarNoMeGusta()
+    {
+        await LikeService.IncrementarNoMeGusta();  // Llama al método correspondiente en el servicio
+        await CargarContadores();  // Actualiza los contadores después de la operación
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarContadores();
+    }
+}
+ *@
