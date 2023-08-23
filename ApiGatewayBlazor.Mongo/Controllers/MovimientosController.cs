@@ -25,7 +25,7 @@ namespace ApiGatewayBlazor.Mongo.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GenerarVenta([FromBody] Movimiento venta)
+        public async Task<IActionResult> ConsultarVenta([FromBody] Movimiento venta)
         {
             Movimiento venta1 = new Movimiento();
             venta1.ProductoId = venta.ProductoId;
@@ -36,6 +36,19 @@ namespace ApiGatewayBlazor.Mongo.Controllers
             await _collection.InsertOneAsync(venta);
 
             return Ok("Venta generada exitosamente.");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GenerarVenta([FromBody] Movimiento venta)
+        {
+            if (venta == null)
+                return BadRequest();
+            if (venta.DescripcionProducto == string.Empty)
+            {
+                ModelState.AddModelError("descripcionProducto", "La venta no ha sido encontrada");
+            }
+            await _collection.InsertOneAsync(venta);
+            return Ok();
         }
 
         [HttpPost]
@@ -53,13 +66,24 @@ namespace ApiGatewayBlazor.Mongo.Controllers
         public async Task<IActionResult> GenerarDislike([FromBody] Movimiento dislike)
         {
             Movimiento dislikes = new Movimiento();
-            dislikes.DisLikes = false;
+            dislikes.DisLikes = true;
 
             await _collection.InsertOneAsync(dislike);
 
             return Ok("Dislike generado exitosamente.");
         }
 
+        private int likeCount = 0;
+
+        private void IncrementLikeCount()
+        {
+            likeCount++;
+        }
+
+        private void DecrementLikeCount()
+        {
+            likeCount--;
+        }
     }
 }
 

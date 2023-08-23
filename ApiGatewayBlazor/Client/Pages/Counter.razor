@@ -1,12 +1,13 @@
 ﻿@page "/counter"
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Productos</PageTitle>
 
-<h1>Counter</h1>
+<h1>Productos</h1>
 
 <p role="status">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="IncrementCount">Like</button>
+<button class="btn btn-primary" @onclick="IncrementCount">DisLike</button>
 
 @code {
     private int currentCount = 0;
@@ -14,5 +15,6 @@
     private void IncrementCount()
     {
         currentCount++;
+        currentCount--;
     }
 }
