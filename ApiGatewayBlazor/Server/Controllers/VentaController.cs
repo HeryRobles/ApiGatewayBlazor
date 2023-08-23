@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiGatewayBlazor.Mongo.Models;
+using ApiGatewayBlazor.SqlServer.Models.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ApiGatewayBlazor.SqlServer.Controllers
 {
@@ -7,28 +10,43 @@ namespace ApiGatewayBlazor.SqlServer.Controllers
     public class VentaController : ControllerBase
     {
         private readonly VentaController _dbContext;
+        private readonly HttpClient _httpClient;
 
         public VentaController(VentaController dbContext)
         {
             _dbContext = dbContext;
+            _httpClient = new HttpClient();
         }
 
-        [HttpPost]
-        [Route("RealizarVenta")]
-        public async Task<IActionResult> RealizarVenta([FromBody] VentaModel venta)
+        [HttpGet]
+        public async Task<IActionResult> ConsultarVenta([FromQuery] int ventaId)
         {
-            try
-            {
-                // Agregar lógica para registrar la venta en la base de datos
-                _dbContext.Ventas.Add(venta);
-                await _dbContext.SaveChangesAsync();
 
-                return Ok("Venta registrada exitosamente");
-            }
-            catch (Exception ex)
+            HttpResponseMessage response = await _httpClient.GetAsync($"api/ventas/{ventaId}");
+
+            if (response.IsSuccessStatusCode)
             {
-                return BadRequest($"Error al registrar la venta: {ex.Message}");
+                string responseData = await response.Content.ReadAsStringAsync();
+                Venta venta = JsonConvert.DeserializeObject<Venta>(responseData);
+
+                Movimiento movimiento = new Movimiento
+                {
+                    ProductoId = venta.ProductoId,
+                    DescripcionProducto = venta.DescripcionProducto,
+                    ClienteId = venta.ClienteId,
+                    NombreCliente = venta.NombreCliente,
+                    TipoMovimiento = "Venta" // Set the type of movement
+                };
+
+
+                return Ok("Venta generada exitosamente.");
             }
+            else
+            {
+                return BadRequest("Error fetching venta.");
+            }
+
+
         }
     }
 }

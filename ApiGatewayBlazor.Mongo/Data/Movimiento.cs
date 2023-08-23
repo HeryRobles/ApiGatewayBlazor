@@ -26,6 +26,15 @@ namespace ApiGatewayBlazor.Mongo.Models
         //DATOS PARA LOS LIKE Y DISLIKE:
 
         [BsonElement("tipoDeMovimiento")]
-        public string TipoMovimiento { get; set; } = string.Empty;
+        public TipoMovimiento Tipo { get; set; } 
     }
+
+    public enum TipoMovimiento 
+    {
+        like,
+        Dislike,
+        Venta
+    }
+
+
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiGatewayBlazor.SqlServer.Controllers
 {
-    [ApiController, Route("/ventas")]
+    [ApiController, Route("api/ventas")]
     public class VentasController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

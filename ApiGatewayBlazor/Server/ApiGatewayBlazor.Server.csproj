@@ -8,9 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ApiGatewayBlazor.Mongo\ApiGatewayBlazor.Mongo.csproj" />
+    <ProjectReference Include="..\..\ApiGatewayBlazor.SqlServer\ApiGatewayBlazor.SqlServer.csproj" />
     <ProjectReference Include="..\Client\ApiGatewayBlazor.Client.csproj" />
     <ProjectReference Include="..\Shared\ApiGatewayBlazor.Shared.csproj" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using ApiGatewayBlazor.Mongo.Models;
 using ApiGatewayBlazor.SqlServer.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using MongoDB.Driver;
 
 namespace ApiGatewayBlazor.Mongo.Controllers
@@ -26,35 +27,35 @@ namespace ApiGatewayBlazor.Mongo.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ConsultarVenta([FromQuery] int ventaId)
+        public async Task<IActionResult> ObtenerVentas()
         {
-            string sqlServerApiUrl = "https://localhost:7152";
-            using (HttpClient httpClient = new HttpClient()) 
-            {
-                HttpResponseMessage response = await 
-                    httpClient.GetAsync($"{https://localhost:7152}/ApiGatewayBlazor/SqlServer/Models/Entities/{ventaId}");
-                if (response.IsSuccessStatusCode)
-                {
-                    Venta venta = await.response.Content.ReadAsAsync<Venta>();
-                    Movimiento movimiento = new Movimiento
-                    {
-                        ProductoId = venta.ProductoId,
-                        DescripcionProducto = venta.Descripcion,
-                        ClienteId = venta.ClienteId,
-                        NombreCliente = venta.Name,
-                        TipoMovimiento = "Venta"
-                    };
-                    await _collection.InsertOneAsync(movimiento);
-                    return Ok("venta generada");
-                }
-                else
-                {
-                    return BadRequest("Error fetching venta.");
-                }
-              
-            }
+            var clientes = await _collection.FindAsync();
+            return Ok(clientes);
+        }
 
-            
+        [HttpPost]
+        public async Task<IActionResult> RegistrarTipoDeMovimiento(TipoMovimiento tipoMovimiento)
+        {
+            await _collection.(tipoMovimiento);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("ProductosPopulares")]
+        public IActionResult ProductosPopulares()
+        {
+            var productosPopulares = _collection
+                .Find(movimiento => movimiento.TipoMovimiento == "Venta")
+                .GroupBy(movimiento => movimiento.ProductoId)
+                .Select(group => new
+                {
+                    ProductoId = group.Key,
+                    TotalLikes = group.Sum(movimiento => movimiento.Likes)
+                })
+                .OrderByDescending(group => group.TotalLikes)
+                .ToList();
+
+            return Ok(productosPopulares);
         }
 
         [HttpPost]

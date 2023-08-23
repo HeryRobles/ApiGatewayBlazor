@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ApiGatewayBlazor.SqlServer.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/productos")]
     public class ProductosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -40,7 +40,7 @@ namespace ApiGatewayBlazor.SqlServer.Controllers
         public async Task<ActionResult> Add([FromBody] Producto producto)
         {
             var productoAdd = new Producto();
-            productoAdd.Descripcion = producto.Descripcion;
+            productoAdd.DescripcionProducto = producto.DescripcionProducto;
             productoAdd.ValorUnitario = producto.ValorUnitario;
             productoAdd.UbicacionProducto = producto.UbicacionProducto;
 
