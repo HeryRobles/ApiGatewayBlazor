@@ -1,6 +1,4 @@
 ﻿using ApiGatewayBlazor.Mongo.Models;
-using ApiGatewayBlazor.Mongo.Services;
-using ApiGatewayBlazor.SqlServer.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
@@ -14,6 +12,7 @@ namespace ApiGatewayBlazor.Mongo.Controllers
         private readonly MongoClient _client;
         private readonly IMongoDatabase _database;
 
+
         //Coleccion = tabla
         private readonly IMongoCollection<Movimiento> _collection;
         public MovimientosController()
@@ -22,86 +21,48 @@ namespace ApiGatewayBlazor.Mongo.Controllers
             _database = _client.GetDatabase("ventas");
             //Coleccion = tabla
             _collection = _database.GetCollection<Movimiento>("movimientos");
+
         }
+
         [HttpGet]
-        public ActionResult<IEnumerable<Movimiento>> GetMovimientos()
+        public async Task<IActionResult> GenerarVenta([FromBody] Movimiento venta)
         {
-            try
-            {
-                var movimientos = _collection.Find(m => true).ToList();
-                return Ok(movimientos);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error: {ex.Message}");
-            }
+            Movimiento venta1 = new Movimiento();
+            venta1.ProductoId = venta.ProductoId;
+            venta1.DescripcionProducto = venta.DescripcionProducto;
+            venta1.NombreCliente = venta.NombreCliente;
+            venta1.ClienteId = venta.ClienteId;
+
+            await _collection.InsertOneAsync(venta);
+
+            return Ok("Venta generada exitosamente.");
         }
 
-        [HttpPost("likes")]
-        public ActionResult<Movimiento> AddLikeDislike(LikeDislike likeDislike)
+        [HttpPost]
+        public async Task<IActionResult> GenerarLike([FromBody] Movimiento like)
         {
-            try
-            {
-                var movimiento = new Movimiento
-                {
-                    ClienteId = likeDislike.ClienteId,
-                    ProductoId = likeDislike.ProductoId,
-                    TipoMovimiento = TipoMovimiento.Like
-                };
+            Movimiento likes = new Movimiento();
+            likes.Likes = true;
 
-                _collection.InsertOne(movimiento);
-                return CreatedAtAction(nameof(GetMovimientos), new { id = movimiento.Id }, movimiento);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error: {ex.Message}");
-            }
+            await _collection.InsertOneAsync(like);
+
+            return Ok("Like generado exitosamente.");
         }
 
-        [HttpPost("dislikes")]
-        public ActionResult<Movimiento> AddDislike(LikeDislike likeDislike)
+        [HttpPost]
+        public async Task<IActionResult> GenerarDislike([FromBody] Movimiento dislike)
         {
-            try
-            {
-                var movimiento = new Movimiento
-                {
-                    ClienteId = likeDislike.ClienteId,
-                    ProductoId = likeDislike.ProductoId,
-                    TipoMovimiento = TipoMovimiento.Dislike
-                };
+            Movimiento dislikes = new Movimiento();
+            dislikes.DisLikes = false;
 
-                _collection.InsertOne(movimiento);
-                return CreatedAtAction(nameof(GetMovimientos), new { id = movimiento.Id }, movimiento);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error: {ex.Message}");
-            }
-        }
+            await _collection.InsertOneAsync(dislike);
 
-        [HttpPost("ventas")]
-        public ActionResult<Movimiento> AddVenta(Venta venta)
-        {
-            try
-            {
-                var movimiento = new Movimiento
-                {
-                    ClienteId = venta.ClienteId,
-                    ProductoId = venta.ProductoId,
-                    TipoMovimiento = TipoMovimiento.Venta
-                };
-
-                _collection.InsertOne(movimiento);
-                return CreatedAtAction(nameof(GetMovimientos), new { id = movimiento.Id }, movimiento);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error: {ex.Message}");
-            }
+            return Ok("Dislike generado exitosamente.");
         }
 
     }
 }
+
 
 
 

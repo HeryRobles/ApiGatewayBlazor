@@ -34,6 +34,7 @@ namespace ApiGatewayBlazor.SqlServer.Controllers
         {
             var ventaAdd = new Venta();
             ventaAdd.Folio = venta.Folio;
+            ventaAdd.Fecha = venta.Fecha;   
             ventaAdd.TotalVenta = venta.TotalVenta;
 
             _context.Ventas.Add(venta);

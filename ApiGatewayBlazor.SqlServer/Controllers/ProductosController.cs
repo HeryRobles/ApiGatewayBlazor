@@ -41,6 +41,8 @@ namespace ApiGatewayBlazor.SqlServer.Controllers
         {
             var productoAdd = new Producto();
             productoAdd.Descripcion = producto.Descripcion;
+            productoAdd.ValorUnitario = producto.ValorUnitario;
+            productoAdd.UbicacionProducto = producto.UbicacionProducto;
 
             _context.Productos.Add(producto);
             await _context.SaveChangesAsync();

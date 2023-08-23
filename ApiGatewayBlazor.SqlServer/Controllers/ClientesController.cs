@@ -1,6 +1,7 @@
 ﻿using ApiGatewayBlazor.SqlServer.Models;
 using ApiGatewayBlazor.SqlServer.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiGatewayBlazor.SqlServer.Controllers
 {
@@ -13,6 +14,12 @@ namespace ApiGatewayBlazor.SqlServer.Controllers
         public ClientesController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Cliente>>> ObtenerClientes()
+        {
+            return await _context.Clientes.ToListAsync();
         }
 
         [HttpPost]
