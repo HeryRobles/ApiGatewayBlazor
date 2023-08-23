@@ -29,8 +29,8 @@ namespace ApiGatewayBlazor.Mongo.Controllers
         [HttpGet]
         public async Task<IActionResult> ObtenerVentas()
         {
-            var clientes = await _collection.FindAsync();
-            return Ok(clientes);
+            var ventas = await _collection.FindAsync();
+            return Ok(ventas);
         }
 
         [HttpPost]
@@ -62,7 +62,7 @@ namespace ApiGatewayBlazor.Mongo.Controllers
         public async Task<IActionResult> GenerarLike([FromBody] Movimiento like)
         {
             Movimiento likes = new Movimiento();
-            likes.Likes = true;
+            likes.TipoMovimiento = "Like";
 
             await _collection.InsertOneAsync(like);
 
@@ -73,7 +73,7 @@ namespace ApiGatewayBlazor.Mongo.Controllers
         public async Task<IActionResult> GenerarDislike([FromBody] Movimiento dislike)
         {
             Movimiento dislikes = new Movimiento();
-            dislikes.DisLikes = true;
+            dislikes.TipoMovimiento = "No me gusta";
 
             await _collection.InsertOneAsync(dislike);
 
