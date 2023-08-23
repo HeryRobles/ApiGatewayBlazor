@@ -1,7 +1,6 @@
 ﻿using ApiGatewayBlazor.Mongo.Models;
 using ApiGatewayBlazor.SqlServer.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 using MongoDB.Driver;
 
 namespace ApiGatewayBlazor.Mongo.Controllers
