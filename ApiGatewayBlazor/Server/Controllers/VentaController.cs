@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using ApiGatewayBlazor.Shared; // Asegúrate de tener el namespace correcto
-using Microsoft.EntityFrameworkCore;
 
 namespace ApiGatewayBlazor.SqlServer.Controllers
 {
@@ -9,9 +6,9 @@ namespace ApiGatewayBlazor.SqlServer.Controllers
     [ApiController]
     public class VentaController : ControllerBase
     {
-        private readonly CatalogosDbSql _dbContext;
+        private readonly VentaController _dbContext;
 
-        public VentaController(CatalogosDbSql dbContext)
+        public VentaController(VentaController dbContext)
         {
             _dbContext = dbContext;
         }

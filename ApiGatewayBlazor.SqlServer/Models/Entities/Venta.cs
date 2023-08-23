@@ -9,5 +9,6 @@
         public decimal TotalVenta { get; set; }
 
         public int ClienteId { get; set; }
+        public int ProductoId { get; set; }
     }
 }
