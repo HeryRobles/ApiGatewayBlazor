@@ -9,33 +9,34 @@ namespace ApiGatewayBlazor.Mongo.Controllers
     [Route("api/[controller]")]
     public class MovimientosController : ControllerBase
     {
-        //Conectar a la base de datos
-        private readonly MongoClient _client;
-        private readonly IMongoDatabase _database;
+        ////Conectar a la base de datos
+        //private readonly MongoClient _client;
+        //private readonly IMongoDatabase _database;
         
-        //Coleccion = tabla
-        private readonly IMongoCollection<Movimiento> _collection;
+        ////Coleccion = tabla
+        //private readonly IMongoCollection<Movimiento> _collection;
        
         public MovimientosController()
         {
-            _client = new MongoClient("mongodb://localhost:27017");
-            _database = _client.GetDatabase("ventas");
-            //Coleccion = tabla
-            _collection = _database.GetCollection<Movimiento>("movimientos");
+            //_client = new MongoClient("mongodb://localhost:27017");
+            //_database = _client.GetDatabase("ventas");
+            ////Coleccion = tabla
+            //_collection = _database.GetCollection<Movimiento>("movimientos");
 
         }
 
         [HttpGet]
         public async Task<IActionResult> ObtenerVentas()
         {
-            var ventas = await _collection.FindAsync();
+            var ventas = _collection.Find(_ => true).ToList();
             return Ok(ventas);
         }
 
         [HttpPost]
         public async Task<IActionResult> RegistrarTipoDeMovimiento(TipoMovimiento tipoMovimiento)
         {
-            await _collection.(tipoMovimiento);
+            
+            object value = await _collection.InsertOneAsync(TipoMovimiento);
             return Ok();
         }
 
